@@ -3,9 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promoth</title>
+    <title>Promoth Thangaraj | Portfolio</title>
+    <style>
+        :root {
+            --bg: #06070d;
+            --bg-soft: #11131b;
+            --panel: rgba(17, 19, 27, 0.82);
+            --panel-strong: #181b24;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f5f7fb;
+            --muted: #aab1c2;
+            --accent: #66e3ff;
+            --accent-soft: #96ffcf;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(102, 227, 255, 0.18), transparent 30%),
+                radial-gradient(circle at top right, rgba(150, 255, 207, 0.14), transparent 24%),
+                linear-gradient(160deg, #04050a 0%, #090b12 48%, #06070d 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 48px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.35fr 0.95fr;
+            gap: 24px;
+            padding: 34px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(15, 17, 24, 0.95), rgba(8, 9, 14, 0.86));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -60px -60px auto;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(102, 227, 255, 0.22), transparent 66%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding: 8px 14px;
+            border: 1px solid rgba(102, 227, 255, 0.2);
+            border-radius: 999px;
+            background: rgba(102, 227, 255, 0.08);
+            color: var(--accent);
+            font-size: 0.92rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(2.6rem, 5vw, 4.9rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            max-width: 60ch;
+            color: var(--muted);
+            font-size: 1.02rem;
+        }
+
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .contact-card,
+        .section-card {
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 26px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+                var(--panel-strong);
+        }
+
+        .contact-card h2 {
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-item {
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .contact-item span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 3px;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tag {
+            padding: 11px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #d9e0f0;
+            font-size: 0.92rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 24px;
+        }
+
+        .section-card {
+            padding: 28px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            font-size: 1.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 52px;
+            height: 3px;
+            margin-top: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+        }
+
+        .timeline-item + .timeline-item,
+        .project-card + .project-card,
+        .achievement-list li + li,
+        .course-list li + li,
+        .soft-skill-list li + li {
+            margin-top: 16px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .timeline-item h3,
+        .project-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 4px;
+        }
+
+        .timeline-item p,
+        .project-card p,
+        .achievement-list li,
+        .course-list li,
+        .soft-skill-list li {
+            color: var(--muted);
+        }
+
+        .project-card {
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+        }
+
+        .project-card ul {
+            margin: 14px 0 0 18px;
+            color: var(--muted);
+        }
+
+        .project-card li + li {
+            margin-top: 8px;
+        }
+
+        .skill-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .skill-box {
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .skill-box h3 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .skill-box p {
+            color: var(--muted);
+        }
+
+        .course-list,
+        .achievement-list,
+        .soft-skill-list {
+            list-style: none;
+        }
+
+        .declaration {
+            margin-top: 24px;
+            padding: 26px 28px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(102, 227, 255, 0.08), rgba(255, 255, 255, 0.03));
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-size: 1.05rem;
+            color: var(--accent-soft);
+        }
+
+        @media (max-width: 920px) {
+            .hero,
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            .section-card,
+            .contact-card,
+            .declaration {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page-shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 16px;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            .eyebrow {
+                font-size: 0.76rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    Iam Promoth
+    <main class="page-shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <div>
+                    <div class="eyebrow">AIML Student / Web Developer</div>
+                    <h1>Promoth Thangaraj</h1>
+                    <p>
+                        Motivated and dedicated 2nd-year engineering student with a strong interest in software development and web technologies.
+                        Eager to apply programming skills in real-world projects and grow through internships, collaboration, and hands-on development.
+                    </p>
+                </div>
+                <div class="tag-row">
+                    <div class="tag">HTML</div>
+                    <div class="tag">CSS</div>
+                    <div class="tag">JavaScript</div>
+                    <div class="tag">Python Basics</div>
+                    <div class="tag">Git & GitHub</div>
+                </div>
+            </div>
+
+            <aside class="contact-card">
+                <div>
+                    <h2>Contact</h2>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span>Location</span>
+                            Pollachi, Tamil Nadu, India
+                        </div>
+                        <div class="contact-item">
+                            <span>Phone</span>
+                            +91 XXXXX XXXXX
+                        </div>
+                        <div class="contact-item">
+                            <span>Email</span>
+                            <a href="mailto:yourmail@gmail.com">yourmail@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>GitHub</span>
+                            <a href="https://github.com/PromothThangaraj" target="_blank" rel="noreferrer">github.com/PromothThangaraj</a>
+                        </div>
+                    </div>
+                </div>
+                <p class="muted">Focused on building clean, user-friendly websites and steadily growing into full software development.</p>
+            </aside>
+        </section>
+
+        <section class="layout">
+            <div class="stack">
+                <article class="section-card">
+                    <h2 class="section-title">Objective</h2>
+                    <p class="muted">
+                        I aim to contribute to practical software projects where I can strengthen my frontend development skills,
+                        improve problem-solving ability, and gain valuable industry experience.
+                    </p>
+                </article>
+
+                <article class="section-card">
+                    <h2 class="section-title">Projects</h2>
+
+                    <div class="project-card">
+                        <h3>Toy Story - E-commerce Website for Toys</h3>
+                        <p>Responsive web platform focused on toy products with a clean browsing experience.</p>
+                        <ul>
+                            <li>Built product listing, shopping cart, and basic checkout functionality.</li>
+                            <li>Designed an easy-to-use interface for better user interaction.</li>
+                            <li>Created interactive frontend pages using HTML, CSS, and JavaScript.</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Mini Project - Student Utility Web App</h3>
+                        <p>Simple utility application created to support student-related tasks and data interaction.</p>
+                        <ul>
+                            <li>Implemented basic data input, display, and frontend interaction flows.</li>
+                            <li>Focused on usability, cleaner logic, and practical page structure.</li>
+                            <li>Developed using HTML, CSS, and JavaScript.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="section-card">
+                    <h2 class="section-title">Education</h2>
+                    <div class="timeline-item">
+                        <h3>B.E. - Electronics and Communication Engineering</h3>
+                        <p>Anna University Affiliated College, Tamil Nadu</p>
+                        <p>2023 - 2027 (Expected)</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="stack">
+                <article class="section-card">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <div class="skill-grid">
+                        <div class="skill-box">
+                            <h3>Programming</h3>
+                            <p>C, C++, and Python fundamentals</p>
+                        </div>
+                        <div class="skill-box">
+                            <h3>Web Development</h3>
+                            <p>HTML, CSS, JavaScript</p>
+                        </div>
+                        <div class="skill-box">
+                            <h3>Tools</h3>
+                            <p>Git, GitHub, VS Code</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="section-card">
+                    <h2 class="section-title">Coursework</h2>
+                    <ul class="course-list">
+                        <li>Data Structures</li>
+                        <li>Operating Systems</li>
+                        <li>Microprocessors and Microcontrollers</li>
+                        <li>Database Management Systems</li>
+                    </ul>
+                </article>
+
+                <article class="section-card">
+                    <h2 class="section-title">Achievements</h2>
+                    <ul class="achievement-list">
+                        <li>Completed coursework and academic mini-projects as part of the engineering curriculum.</li>
+                        <li>Actively learning version control with Git and project hosting with GitHub.</li>
+                    </ul>
+                </article>
+
+                <article class="section-card">
+                    <h2 class="section-title">Soft Skills</h2>
+                    <ul class="soft-skill-list">
+                        <li>Problem Solving</li>
+                        <li>Teamwork</li>
+                        <li>Communication</li>
+                        <li>Quick Learner</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="declaration">
+            <h2 class="section-title">Declaration</h2>
+            <p class="muted">
+                I hereby declare that the above information is true to the best of my knowledge and belief.
+            </p>
+            <p class="signature">Signature<br>Promoth Thangaraj</p>
+        </section>
+    </main>
 </body>
 </html>
